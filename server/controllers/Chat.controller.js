@@ -23,3 +23,33 @@ module.exports.addMessage = async (req, res, next) => {
         next(error)
     }
 }
+
+module.exports.getAllUserChats = async(req, res, next) => {
+    try {
+        const {payload: {userId}} = req;
+        const allUserChats = await Chat.find({
+            members: userId
+        });
+        res.status(200).send({data: allUserChats})
+    } catch(error) {
+        next(error);
+    }
+}
+
+module.exports.addUserToChat = async (req,res, next) => {
+    try {
+        const {params: {chatId, userId}} = req;
+        const foundChat = await Chat.findById(chatId);
+        if(!foundChat) {
+            throw new Error('Chat not found');
+        }
+        const userInstanse = await User.findById(userId);
+        foundChat.members.push(userInstanse);
+        await foundChat.save();
+        res.status(200).send({
+            data: 'ok'
+        })
+    } catch(error) {
+        next(error)
+    }
+}
