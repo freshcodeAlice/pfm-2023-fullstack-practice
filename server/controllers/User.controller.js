@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt');
 const {User} = require('../models');
 const {deletePassword} = require('../utils/deletePassword');
-const {createToken} = require('../service/tokenService');
+const {createTokenPair} = require('../service/tokenService');
+const {verifyRefreshToken} = require('../service/tokenService');
 
 /*
 Авторизація та аутентифікація юзера
@@ -40,8 +41,8 @@ module.exports.signUp = async (req, res, next) => {
         // перед тим, як повертати юзера, треба з об'єкта видалити пароль
 
         // TODO: створити сесію юзера
-        const token = await createToken(readyUser.id, readyUser.email);
-        res.status(201).send({data: readyUser, token});
+        const tokens = await createTokenPair(readyUser.id, readyUser.email);
+        res.status(201).send({data: readyUser, tokens});
     } catch(error) {
          next(error)
     }
@@ -76,8 +77,8 @@ module.exports.signIn = async (req, res, next) => {
             throw new Error('Invalid data');
         }
      //   4. Якщо пароль співпав - створюємо сесію юзера і генеруємо для нього токен для всіх подальших запитів
-        const token = await createToken(foundUser.id, foundUser.email);
-        res.status(200).send({data: deletePassword(foundUser), token})
+        const tokens = await createTokenPair(foundUser.id, foundUser.email);
+        res.status(200).send({data: deletePassword(foundUser), tokens})
       //      Всі наступні (подальші) запити мають приходити з цим виданим токеном
       // на клієнті цей токен зберігається у localStorage
     } catch(error) {
@@ -107,4 +108,27 @@ module.exports.signIn = async (req, res, next) => {
 Токени створюються сервером, підписуються секретним ключем і передаються клієнту, який надалі використовує цей токен для підтвердження своєї особи.
 
 
+*/
+
+
+module.exports.refreshSession = async (req, res, next) => {
+    try {
+        const {body: {refreshToken}} = req;
+        // перевіряємо валідність refreshToken
+        const payload = await verifyRefreshToken(refreshToken);
+        // Для обмеження кількості пристроїв, з яких можливо оновити сесію, RT має зберігатись в БД
+        // При оновленні сесії він має замінюватись на наступний
+        const tokenPair = await createTokenPair(payload);
+        res.status(200).send({tokens: tokenPair})
+    } catch(error) {
+        next(error)
+    }
+}
+/*
+Оновлення сесії
+
+1. Якщо попередній запит прийшов з помилкою 403 - ми беремо з localStorage refreshToken і йдемо оновлювати сесію.
+2.  Маємо перевірити, чи валідний refreshToken
+- якщо так - оновлюємо сесію, видаємо нову пару токенів
+- якщо ні - видаємо іншу помилку, 400, і змушуємо користувача логінитись заново
 */
