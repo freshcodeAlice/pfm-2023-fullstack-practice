@@ -1,6 +1,7 @@
 const {verifyToken} = require('../service/tokenService');
 const TokenError = require('../errors/TokenError');
 
+
 module.exports.checkToken = async (req, res, next) => {
     try {
         const {headers: {authorization}} = req;
@@ -23,6 +24,7 @@ module.exports.checkToken = async (req, res, next) => {
     2.2 Перевіряємо (верифікуємо) токен:
         - якщо він валідний і все ок - викликаємо next()
         - якщо він невалідний - помилка 403 Forbidden
+    Якщо він прострочився - надсилаємо 403 і змушуємо користувача оновити сесію
 
 */
 
