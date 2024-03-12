@@ -1,11 +1,53 @@
 import React from 'react';
+import { Field, Form, useFormik } from 'formik';
+import {format} from 'date-fns';
+import CustomField from '../CustomField';
+import styles from '../../pages/Home/Home.module.css';
+import {signUp} from '../../api/index';
 
-const SignUpForm = () => {
+const SignUpForm = (props) => {
+    const formik = useFormik({
+        initialValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            birthday: format(new Date(), "yyyy-MM-dd"),
+            imagePath: ''
+        },
+        onSubmit: values => {
+            signUp(values)
+               .then(res => {
+                props.sendCallback(res)
+               })
+        }
+    });
     return (
-        <div>
-            Sign Up
-        </div>
+        <form 
+        onSubmit={formik.handleSubmit} 
+        onReset={formik.handleReset}
+        className={styles.form}
+        >
+            <CustomField type="text" name="firstName" formik={formik} placeholder="Type your firstName"/>           
+            <CustomField type="text" name="lastName" formik={formik} placeholder="Type your lastName"/>
+            <CustomField type="email" name="email" formik={formik} placeholder="Type your email"/>
+            <CustomField type="password" name="password" formik={formik} placeholder="Type your pass"/>
+            <CustomField type="date" name="birthday" formik={formik}/>
+            <CustomField type="file" name="imagePath" formik={formik}/>
+            <button type="submit">Submit form</button>
+        </form>
     );
 }
 
 export default SignUpForm;
+
+/*
+
+firstName - text
+lastName - text
+email - email
+password - password
+birthday - date
+imagePath - file
+
+*/
