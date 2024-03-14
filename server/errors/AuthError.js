@@ -1,4 +1,4 @@
-class TokenError extends Error {
+class AuthError extends Error {
     constructor(message) {
         super(message);
         this.message = message;
@@ -7,4 +7,4 @@ class TokenError extends Error {
     
 }
 
-module.exports = TokenError;
+module.exports = AuthError;
