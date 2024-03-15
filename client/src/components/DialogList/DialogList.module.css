@@ -38,3 +38,11 @@
     background-color: coral;
     cursor: pointer;
 }
+
+/* .chat-item {
+    background-color: honeydew;
+} */
+
+.current-chat-item {
+    background-color: floralwhite;
+}

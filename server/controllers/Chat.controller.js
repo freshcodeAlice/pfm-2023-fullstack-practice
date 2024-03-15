@@ -53,3 +53,13 @@ module.exports.addUserToChat = async (req,res, next) => {
         next(error)
     }
 }
+
+module.exports.getOneChat = async (req, res, next) => {
+    try {
+        const {params: {chatId}} = req;
+        const foundChat = await Chat.findById(chatId);
+        res.status(200).send({data: foundChat})
+    } catch (error) {
+        next(error)
+    }
+}

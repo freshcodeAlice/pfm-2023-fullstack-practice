@@ -17,7 +17,7 @@ const Home = (props) => {
         props.setUser(response.data.data);
 
         // після оновлення даних у стейті App - хочемо автоматично перенаправити користувача на дашборд
-        history.push('/messenger')
+       history.push('/messenger');
     }
 
    
