@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import styles from './Chat.module.css';
 import ChatContext from '../../contexts/ChatContext';
 import {getOneChat} from '../../api/index';
@@ -8,6 +8,7 @@ import ChatItem from './ChatItem';
 
 const Chat = (props) => {
     const [currentChat] = useContext(ChatContext);
+    const scrollRef = useRef(null);
 
     const [chatStory, setChatStory] = useState([]);
 
@@ -19,11 +20,17 @@ const Chat = (props) => {
             })
         }
 
-    }, [currentChat])
+    }, [currentChat]);
+
+
+    useEffect(()=> {
+        scrollRef.current.scrollIntoView();
+    })
 
     return (
         <section className={styles.chat}>
             {chatStory?.map(mes => <ChatItem message={mes} key={mes._id}/>)}
+            <div ref={scrollRef}></div>
         </section>
     );
 }
