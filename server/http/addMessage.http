@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/chats/65e6df0524de2c1072ef5d9c HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU1OTVhNGI2ZTIwZjBiYTMyMzY5MWMiLCJlbWFpbCI6ImphbmVEZWVlb2VAcmUuZmQiLCJpYXQiOjE3MTA3NDUzNTAsImV4cCI6MTcxMDc2Njk1MH0.YeUJp8kySg750FifxtNLsa7DU3hf494zxOzcw9RO3s4
+
+{
+    "author": "65e592b0e077d7a4f9efa687",
+    "body": "I'm so glad to see you"
+}

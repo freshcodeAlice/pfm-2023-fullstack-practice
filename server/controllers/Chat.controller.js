@@ -15,8 +15,10 @@ module.exports.addMessage = async (req, res, next) => {
     try {
         const {body, params: {chatId}} = req;
         const newMessageInstanse = await Message.create({...body, chat: chatId});
+        
         const chatInstanse = await Chat.findById(chatId);
-        chatInstanse.message.push(newMessageInstanse);
+        console.log(chatInstanse);
+        chatInstanse.messages.push(newMessageInstanse);
         await chatInstanse.save();
         res.status(201).send({data: newMessageInstanse});
     } catch(error) {
@@ -57,7 +59,7 @@ module.exports.addUserToChat = async (req,res, next) => {
 module.exports.getOneChat = async (req, res, next) => {
     try {
         const {params: {chatId}} = req;
-        const foundChat = await Chat.findById(chatId);
+        const foundChat = await Chat.findById(chatId).populate('members').populate('messages');
         res.status(200).send({data: foundChat})
     } catch (error) {
         next(error)
