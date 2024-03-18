@@ -2,11 +2,13 @@ import React, {useContext, useEffect, useState} from 'react';
 import styles from './Chat.module.css';
 import ChatContext from '../../contexts/ChatContext';
 import {getOneChat} from '../../api/index';
+import ChatItem from './ChatItem';
 
 // при виборі певного діалогу у DialogList - Дашборд буде робити запит на сервер, а Чат - відображати всю історію повідомлень у чаті
 
 const Chat = (props) => {
     const [currentChat] = useContext(ChatContext);
+
     const [chatStory, setChatStory] = useState([]);
 
     useEffect(() => {
@@ -21,7 +23,7 @@ const Chat = (props) => {
 
     return (
         <section className={styles.chat}>
-            Chat
+            {chatStory?.map(mes => <ChatItem message={mes} key={mes._id}/>)}
         </section>
     );
 }
