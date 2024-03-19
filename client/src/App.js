@@ -31,13 +31,13 @@ function reducer (state = initialStates, action) {   // Pure function!
       case ACTION_TYPES.INCREMENT: {
           return {
               ...state,
-              count: state.count + 1
+              count: state.count + state.step
           } 
       }
       case ACTION_TYPES.DECREMENT: {
           return {
               ...state,
-              count: state.count - 1
+              count: state.count - state.step
           }
       }
       case ACTION_TYPES.STEP_CHANGE: {

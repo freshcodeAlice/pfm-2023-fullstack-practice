@@ -18,6 +18,10 @@ const decrementActionCreator = () => ({
     type: ACTION_TYPES.DECREMENT
 })
 
+const stepActionCreator = ({target: {value}}) => ({
+    type: ACTION_TYPES.STEP_CHANGE,
+    value
+})
 
 
 const MyComponent = (props) => {
@@ -29,7 +33,7 @@ const MyComponent = (props) => {
        
         <div>
             <h1>{props.count}</h1>
-            {/* <input name="step" value={state.step} onChange={changeHandler} /> */}
+             <input name="step" value={props.step} onChange={props.changeHandler} />
             <button onClick={props.plus}>+</button>
             <button onClick={props.minus}>-</button>
         </div>
@@ -54,7 +58,8 @@ const mapStateToProps = ({count, step}) => {
 
 const mapDispatchToProps = {   // 2 спосіб - об'єкт
     plus: incrementActionCreator,
-    minus: decrementActionCreator
+    minus: decrementActionCreator,
+    changeHandler: stepActionCreator
 }
 
 // const HOC = connect(mapStateToProps);
