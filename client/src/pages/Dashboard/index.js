@@ -39,7 +39,6 @@ const Dashboard = () => {
 
 
     return (
-        <ChatContext.Provider value={[currentChat, setCurrentChat]}>
             <main className={styles['messenger-wrapper']}>
                 <DialogList />
                 <section className={styles.container}>
@@ -47,7 +46,6 @@ const Dashboard = () => {
                     <MessageArea sendData={sendNewMessage}/>
                 </section>
             </main>
-        </ChatContext.Provider>
     );
 }
 
