@@ -8,12 +8,12 @@ import ListItem from './ListItem';
 const DialogList = () => {
     const [list, setList] = useState(); 
 
-    useEffect(() => {
-        getUserChats()
-        .then(res => {
-            setList(res.data.data);
-        })
-    }, [])
+    // useEffect(() => {
+    //     getUserChats()
+    //     .then(res => {
+    //         setList(res.data.data);
+    //     })
+    // }, [])
 
 
     return (
@@ -25,3 +25,10 @@ const DialogList = () => {
 }
 
 export default DialogList;
+
+
+/*
+Переписати компоненту DialogList. При монтуванні вона має відправити action в редьюсер. 
+Одночасно з тим з стору вона має отримувати інформацію про список чатів юзера
+
+*/
