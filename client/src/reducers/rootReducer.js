@@ -15,7 +15,7 @@ function reducer (state = initialStates, action) {   // Pure function!
     console.log(action);
     switch(action.type) {
         
-        case ACTION_TYPES.ADD_NEW_MESSAGE: {
+        case ACTION_TYPES.ADD_NEW_MESSAGE_SUCCESS: {
                 const nextState = produce(state, (draft) => {
                     draft.currentChat.push(action.payload);
                 });
@@ -36,6 +36,7 @@ function reducer (state = initialStates, action) {   // Pure function!
                 chatList: action.payload
             }
         }
+        case ACTION_TYPES.ADD_NEW_MESSAGE_ERROR:
         case ACTION_TYPES.GET_USER_DATA_ERROR:
         case ACTION_TYPES.GET_USER_CHATS_LIST_ERROR: {
             return {

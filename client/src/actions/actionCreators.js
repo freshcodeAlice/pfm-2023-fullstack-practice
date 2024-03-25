@@ -22,9 +22,19 @@ export const getUserDataError = (error) => ({
 
 /* Chat actions */
 
-export const addNewMessage = (payload) => ({
-        type: ACTION_TYPES.ADD_NEW_MESSAGE,
+export const addNewMessageRequest = (payload) => ({
+        type: ACTION_TYPES.ADD_NEW_MESSAGE_REQUEST,
         payload
+    });
+
+export const addNewMessageSuccess = (payload) => ({
+        type: ACTION_TYPES.ADD_NEW_MESSAGE_SUCCESS,
+        payload
+    });
+
+export const addNewMessageError = (error) => ({
+        type: ACTION_TYPES.ADD_NEW_MESSAGE_ERROR,
+        error
     })
 
 
