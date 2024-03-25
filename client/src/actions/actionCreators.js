@@ -29,7 +29,7 @@ export const addNewMessage = (payload) => ({
 
 
 export const getUserChatsList = () => ({
-    type: ACTION_TYPES.GET_USER_CHATS_LIST_REQUEST
+    type: ACTION_TYPES.GET_USER_CHATS_LIST_REQUEST,
 });
 
 export const getUserChatListSuccess = (payload) => ({
@@ -43,4 +43,18 @@ export const getUserChatListError = (error) => ({
 });
 
 
+export const getCurrentChatRequest = (payload) => ({
+    type: ACTION_TYPES.GET_CURRENT_CHAT_REQUEST,
+    payload
+});
 
+
+export const getCurrentChatSucess = (payload) => ({
+    type: ACTION_TYPES.GET_CURRENT_CHAT_SUCCESS,
+    payload
+})
+
+export const getCurrentChatError = (error) => ({
+    type: ACTION_TYPES.GET_CURRENT_CHAT_ERROR,
+    error
+})
