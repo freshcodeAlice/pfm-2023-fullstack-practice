@@ -30,7 +30,7 @@ const Chat = (props) => {
 
     return (
         <section className={styles.chat}>
-            {props.currentChat.messages?.map(mes => <ChatItem message={mes} key={mes._id}/>)}
+            {props.currentChat?.messages?.map(mes => <ChatItem message={mes} key={mes._id}/>)}
             <div ref={scrollRef}></div>
         </section>
     );

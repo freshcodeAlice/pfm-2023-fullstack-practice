@@ -7,7 +7,7 @@ import {getUserChatsList} from '../../actions/actionCreators';
 
 // При відкритті компонента робить запит за списком діалогів юзера
 
-const DialogList = () => {
+const DialogList = (props) => {
     // const [list, setList] = useState(); 
 
     // useEffect(() => {
@@ -17,7 +17,10 @@ const DialogList = () => {
     //     })
     // }, [])
 
-    useEffect(props.getUserChatsList, [])
+    useEffect(() => {
+       const result =  props.getUserChatsList();
+       console.log(result);
+    }, [])
 
     const {chatList} = props;
 

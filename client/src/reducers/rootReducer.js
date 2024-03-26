@@ -4,7 +4,7 @@ import {produce} from 'immer';
 
 const initialStates = {
     user: null,
-    currentChat: [],
+    currentChat: null,
     error: null,
     chatList: [],
     isFetching: false
@@ -17,7 +17,7 @@ function reducer (state = initialStates, action) {   // Pure function!
         
         case ACTION_TYPES.ADD_NEW_MESSAGE_SUCCESS: {
                 const nextState = produce(state, (draft) => {
-                    draft.currentChat.push(action.payload);
+                    draft.currentChat.messages.push(action.payload);
                 });
                 return nextState;
 
@@ -67,6 +67,13 @@ function reducer (state = initialStates, action) {   // Pure function!
                 ...state,
                 user: action.payload
             }
+        }
+        case ACTION_TYPES.GET_CURRENT_CHAT_SUCCESS: {
+            return {
+                ...state,
+                currentChat: action.payload
+            }
+            /// Ось тут в редьюсері ми можемо робити будь-які СИНХРОННІ перетворення даних
         }
     }
     return state;
