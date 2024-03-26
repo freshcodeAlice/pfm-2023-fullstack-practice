@@ -69,9 +69,24 @@ function reducer (state = initialStates, action) {   // Pure function!
             }
         }
         case ACTION_TYPES.GET_CURRENT_CHAT_SUCCESS: {
+
+            const currentChat = action.payload;
+            const userMap = new Map();
+            currentChat.members.forEach((user) => {
+                userMap.set(user._id, user);
+            })
+
+            const mapped = currentChat.messages.map((message) => {
+                message.author = userMap.get(message.author);
+                return message
+            })  
+
             return {
                 ...state,
-                currentChat: action.payload
+                currentChat: {
+                    ...currentChat,
+                    messages: mapped
+                }
             }
             /// Ось тут в редьюсері ми можемо робити будь-які СИНХРОННІ перетворення даних
         }
@@ -81,3 +96,13 @@ function reducer (state = initialStates, action) {   // Pure function!
   
 
   export default reducer
+
+
+  /*
+currentChat = {
+    members: [],
+    messages: []
+}
+Треба пройтись циклом по messages і в поле author "всадити" об'єкт members, який відповідає цьому автору
+
+  */
