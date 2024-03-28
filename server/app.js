@@ -7,8 +7,10 @@ const bodyParser = express.json();
 
 const app = express();
 
+
 app.use(cors());
 app.use(bodyParser);
+app.use(express.static('public/images'))
 app.use('/api', apiRouter);
 
 app.use(errorHandler);

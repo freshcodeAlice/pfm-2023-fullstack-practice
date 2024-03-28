@@ -9,6 +9,9 @@ const messageSchema = new Schema({
         type: String,
         required: true
     },
+    imagePath: {
+        type: String
+    },
     status: Boolean,
     chat: {
         type: Schema.Types.ObjectId,
