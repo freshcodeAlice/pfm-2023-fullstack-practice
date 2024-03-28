@@ -9,10 +9,12 @@ function currentChatReducer(state = initialStates, action) {
         //     });
         //    return nextState;
         const newMessage = action.payload;
-            /// NEED REFACTOR: new message must contain current user object!
+
+        const messageAuthor = state.members.find((userObj) => userObj._id === newMessage.author);
+        newMessage.author = messageAuthor;
         return {
             ...state,
-            messages: [...state.messages, action.payload]
+            messages: [...state.messages, newMessage]
         }
     }
 
