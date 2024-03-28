@@ -5,38 +5,11 @@ import DialogList from '../../components/DialogList';
 import Chat from '../../components/Chat';
 import MessageArea from '../../components/MessageArea';
 import styles from './Dashboard.module.css';
-// import ChatContext from '../../contexts/ChatContext';
-
-// import UserContext from '../../contexts/UserContext';
  import { addNewMessageRequest } from '../../actions/actionCreators';
 
 
 const Dashboard = (props) => {
-    // const [currentChat, setCurrentChat] = useState();
-    // const user = useContext(UserContext);
-
-    const sendNewMessage = (text) => {
-        const apiObj = {
-            chatId: props.currentChat?._id,
-            message: {
-                author: props.user._id,
-                body: text
-            }
-        }
-        props.addNewMessageRequest(apiObj)
-      
-        // };
-        // props.dispatch(addNewMessage(apiObj))
-        // addNewMessage(apiObj)
-        // .then(({data: {data}}) => {
-        //     const chat = {
-        //         ...currentChat,
-        //         messages: [...currentChat.messages, data]
-        //     };
-        //     setCurrentChat(chat)
-        // })
-    }
-
+   
 
 
     return (
@@ -44,24 +17,10 @@ const Dashboard = (props) => {
                 <DialogList />
                 <section className={styles.container}>
                     <Chat />
-                    <MessageArea sendData={sendNewMessage}/>
+                    <MessageArea/>
                 </section>
             </main>
     );
 }
 
-// export default Dashboard;
-
-const mapStateToProps = ({user, currentChat}) => ({user, currentChat})
-
-// const mapDispatchToProps = () => {
-//     return {
-//         addMessage: (data) => dispatch(addNewMessage(data))
-//     }
-// }
-
-const mapDispatchToProps = {
-    addNewMessageRequest
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default Dashboard;

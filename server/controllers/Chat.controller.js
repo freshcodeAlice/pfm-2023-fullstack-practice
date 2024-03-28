@@ -14,6 +14,7 @@ module.exports.createChat = async (req, res, next) => {
 module.exports.addMessage = async (req, res, next) => {
     try {
         const {body, params: {chatId}, file} = req;
+        // Треба передбачити відсутність картинок як таких
         const newMessageInstanse = await Message.create({...body, chat: chatId, imagePath: file.filename});
         console.log(newMessageInstanse);
         const chatInstanse = await Chat.findById(chatId);
@@ -60,6 +61,7 @@ module.exports.getOneChat = async (req, res, next) => {
     try {
         const {params: {chatId}} = req;
         const foundChat = await Chat.findById(chatId).populate('members').populate('messages');
+        //Need refactor: delete users passwords!!
         res.status(200).send({data: foundChat})
     } catch (error) {
         next(error)
