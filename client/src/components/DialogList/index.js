@@ -28,6 +28,7 @@ const DialogList = (props) => {
         <section className={styles.list}>
             <header className={styles['list-header']}>Chat List</header>
              {chatList && chatList.map(chat => <ListItem chat={chat} key={chat._id}/>)}
+             <footer>+ Add new chat</footer>
         </section>
     );
 }

@@ -4,6 +4,8 @@
     background-color: bisque;
     border: 2px solid grey;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .list-header {
@@ -45,4 +47,12 @@
 
 .current-chat-item {
     background-color: floralwhite;
+}
+
+footer {
+    margin-top: auto;
+    height: 5vh;
+    background-color:gainsboro;
+    text-align: center;
+    cursor: pointer;
 }
