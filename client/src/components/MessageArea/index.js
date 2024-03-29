@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import styles from './MessageArea.module.css';
 import {addNewMessageRequest} from '../../actions/actionCreators';
+import cx from 'classnames';
 
 // зчитувати нове повідомлення і відправляти його ДашБорду, а той - відправляти на сервер
 
 const MessageArea = (props) => {
     const [text, setText] = useState('');
     const [image, setImage] = useState();
+    const [drag, setDrag] = useState(false);
     // другий useState для вибору файла - зробити input керованим елементом
 
     const submitHandler = (e) => {
@@ -47,11 +49,49 @@ const MessageArea = (props) => {
         setImage(event.target.files[0]);
     } 
 
+    // const dragStart = () => {
+    //     console.log('dragStart');
+    // }
+
+    const dragEnter = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setDrag(true)
+    }
+
+    const dragLeave = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setDrag(false)
+    }
+
+    const dragOver = (event) => {
+        event.preventDefault();
+        event.stopPropagation();  
+    }
+
+    // const dragEnd = () => {
+    //     console.log('dragEnd')
+    // }
 
 
-    return (
-            <form className={styles.container} onSubmit={submitHandler}>
-                <textarea className={styles.textarea} value={text} onChange={changeHandler}/>
+    const drop = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log('drop');
+        setImage(event.dataTransfer.files[0]);
+        setDrag(false);
+    }
+
+    const cn = cx(styles.container, {
+        [styles['drag-active']]: drag
+    });
+
+    const viewDrag = () => 'Drop picture to send it'
+
+    const viewForm = () => (
+            <>
+            <textarea className={styles.textarea} value={text} onChange={changeHandler}/>
                 <article className={styles['flex-column']}>
                 <button type="submit"><img src='/assets/icons/plane-icon.jpg' className={styles.icon}/></button>
                 <div className={styles['input-wrapper']}>
@@ -61,6 +101,20 @@ const MessageArea = (props) => {
                 
                 
                 </article>
+            </>)
+
+    return (
+            <form 
+            // className={styles.container}
+            onDragEnter={dragEnter}
+            onDrop={drop}
+            onDragLeave={dragLeave}
+            onDragOver={dragOver}
+            onSubmit={submitHandler}
+            
+            className={cn}>
+                {drag ? viewDrag() : viewForm()}
+                
             </form>
     );
 }
@@ -75,6 +129,9 @@ export default connect(mapState, mapDispatch)(MessageArea);
 
 
 /*
-Переробити компоненту MessageArea на самостійну відправку action
+TODO-in-future: доопрацювати компоненту, створивши мініатюру файлу для перед-перегляду до відправки.
+Варіанти реалізації:
+1. Ще один стейт, в якому буде зберігатись зчитаний файл, що встановлюється в якості src для картинки
+2. ПЕреробити drag-n-drop флоу на окрему компоненту, яка працюватиме за паттерном render-props
 
 */
