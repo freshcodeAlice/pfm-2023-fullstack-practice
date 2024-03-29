@@ -37,3 +37,9 @@ TODO: animating adding and removing chat
 .current-user-message {
     align-self: flex-end;
 }
+
+
+.message-image {
+    width: 15vw;
+    
+}

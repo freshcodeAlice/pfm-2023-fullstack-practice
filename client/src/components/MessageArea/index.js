@@ -14,17 +14,18 @@ const MessageArea = (props) => {
         e.preventDefault();
         // props.sendData(text);
         // відпрвляти action напряму звідси
-
-        const newMessageObject = {
-            chatId: props.currentChat?._id,
-            message: {
-                author: props.user._id,
-                body: text,
-                imagePath: image
+        if(text || image) {
+            const newMessageObject = {
+                chatId: props.currentChat?._id,
+                message: {
+                    author: props.user._id,
+                    body: text,
+                    image: image
+                }
             }
+            props.addNewMessageRequest(newMessageObject)
+            setText('');
         }
-        props.addNewMessageRequest(newMessageObject)
-        setText('');
     }
 
     const changeHandler = ({target: {value}}) => {
@@ -42,8 +43,8 @@ const MessageArea = (props) => {
     }
 
     const imageHandler = (event) => {
-        imageReader(event.target.files[0])
-        
+     //   imageReader(event.target.files[0])
+        setImage(event.target.files[0]);
     } 
 
 
@@ -51,8 +52,15 @@ const MessageArea = (props) => {
     return (
             <form className={styles.container} onSubmit={submitHandler}>
                 <textarea className={styles.textarea} value={text} onChange={changeHandler}/>
-                <input type="file" name="image" onChange={imageHandler} files={image}/>
+                <article className={styles['flex-column']}>
                 <button type="submit"><img src='/assets/icons/plane-icon.jpg' className={styles.icon}/></button>
+                <div className={styles['input-wrapper']}>
+                    <input type="file" name="image" onChange={imageHandler} files={image} className={styles['input-file']}/>
+                        <img src='/assets/icons/876210.png' className={styles['input-icon']}/>
+                    </div>
+                
+                
+                </article>
             </form>
     );
 }

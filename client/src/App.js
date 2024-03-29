@@ -66,8 +66,6 @@ export default connect(mapStateToProps, mapDispatch)(App);
 
 
 
-/// NEED refactor: чому ми провалились в безкінечний цикл?
-
 
 /*
 

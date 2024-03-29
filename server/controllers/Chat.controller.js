@@ -15,7 +15,9 @@ module.exports.addMessage = async (req, res, next) => {
     try {
         const {body, params: {chatId}, file} = req;
         // Треба передбачити відсутність картинок як таких
-        const newMessageInstanse = await Message.create({...body, chat: chatId, imagePath: file.filename});
+       console.log(body);
+       console.log(file);
+        const newMessageInstanse = await Message.create({...body, chat: chatId, imagePath: file?.filename});
         console.log(newMessageInstanse);
         const chatInstanse = await Chat.findById(chatId);
         console.log(chatInstanse);
