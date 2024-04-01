@@ -6,6 +6,8 @@ function fetchingReducer(state = initialStates, action) {
             return state;
         }
     }
+
 }
 
 export default fetchingReducer;
+
