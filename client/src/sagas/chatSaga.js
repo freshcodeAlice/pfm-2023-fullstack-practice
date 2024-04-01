@@ -1,6 +1,6 @@
 import {put} from 'redux-saga/effects';
 import {getUserChats, getOneChat, addNewMessage, createNewChat} from '../api/index';
-import {getUserChatListSuccess, 
+import {
     getUserChatListError, 
     getCurrentChatSucess, 
     getCurrentChatError, 
@@ -9,6 +9,8 @@ import {getUserChatListSuccess,
     createNewChatSuccess,
     createNewChatError
 } from '../actions/actionCreators';
+
+import {getUserChatListSuccess} from '../reducers/chatListReducer';
 
 export function* getUserChatSaga() {
     try {

@@ -130,7 +130,7 @@ export const createNewChatError = (error) => ({
 /*
 
 
-*/
+
 
 const actionType = 'ACTION_TYPE';
 
@@ -151,3 +151,6 @@ function customActionCreator (type) {
         }
     }
 }
+
+
+*/
