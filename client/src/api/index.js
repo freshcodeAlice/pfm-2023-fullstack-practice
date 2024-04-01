@@ -92,6 +92,8 @@ export const addNewMessage = async ({chatId, message}) => await httpClient.post(
       }
 });
 
+export const createNewChat = async (data) => await httpClient.post('/chats', data);
+
 /* User API */
 
 

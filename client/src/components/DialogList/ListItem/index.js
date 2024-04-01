@@ -4,6 +4,7 @@ import styles from '../DialogList.module.css';
 import {getCurrentChatRequest} from '../../../actions/actionCreators';
 import {connect} from 'react-redux';
 import cx from 'classnames';
+import 'animate.css';
 
 const IMAGE_PLACEHOLDER = '/assets/icons/image-placeholder.avif';
 
@@ -13,7 +14,7 @@ const ListItem = (props) => {
 
     const cn = cx(styles['list-item'], {
         [styles['current-chat-item']]: currentChat?._id === _id
-    });
+    },'animate__animated', 'animate__slideInRight');
 
     const clickHandler = () => {
         // setCurrentChat(props.chat);

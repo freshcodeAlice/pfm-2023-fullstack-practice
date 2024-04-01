@@ -10,17 +10,22 @@ import ModalWindow from '../../components/ModalWindow';
 
 
 const Dashboard = (props) => {
+    const [modalOpen, setModal] = useState(false);
    
+
+    const modalHandler = () => {
+        setModal(true);
+    }
 
 
     return (
             <main className={styles['messenger-wrapper']}>
-                <DialogList />
+                <DialogList openModal={setModal}/>
                 <section className={styles.container}>
                     <Chat />
                     <MessageArea/>
                 </section>
-                <ModalWindow />
+                {modalOpen && <ModalWindow close={setModal}/>}
             </main>
     );
 }
