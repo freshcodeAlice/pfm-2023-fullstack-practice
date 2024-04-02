@@ -10,6 +10,7 @@ import currentChatReducer from './reducers/currentChatReducer';
 import errorReducer from './reducers/errorReducer';
 import fetchingReducer from './reducers/fetchingReducer';
 import userReducer from './reducers/userReducer';
+import notificationReducer from './reducers/notificationReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,7 +24,8 @@ const store = configureStore({
         chatList: chatListReducer,
         currentChat: currentChatReducer,
         error: errorReducer,
-        isFetching: fetchingReducer
+        isFetching: fetchingReducer,
+        notification: notificationReducer
     },
     middleware: (getDefaultMiddleware) => [...getDefaultMiddleware({thunk: false}), sagaMiddleware]
 })
