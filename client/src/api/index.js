@@ -3,6 +3,8 @@ import history from '../history';
 import {io} from 'socket.io-client';
 import ACTION_TYPES from '../actions/actionTypes';
 import store from '../store';
+import CONSTANTS from '../constants';
+import {addNewMessage} from '../actions/actionCreators';
 
 const httpClient = axios.create({
     baseURL: 'http://localhost:5000/api'
@@ -11,18 +13,14 @@ const httpClient = axios.create({
 
 const socket = io('ws://localhost:5000');
 
-socket.on(ACTION_TYPES.NEW_NOTIFICATION, (payload) => {
-   // ми отримали нове сповіщення і нам його треба доправити до redux store 
-    store.dispatch({
-        type: ACTION_TYPES.NEW_NOTIFICATION,
-        payload
-    })
-});
+socket.on(CONSTANTS.ADD_MESSAGE_TO_CHAT, (newMessage) => {
+    store.dispatch(addNewMessage(newMessage));
+})
 
-// setTimeout(() => {
-//     socket.emit('add_new_notification', 'hahaha');
-// }, 5000);
 
+export const sendMessage = (message) => {
+    socket.emit(CONSTANTS.NEW_MESSAGE, message);
+}
 
 
 httpClient.interceptors.request.use((config) => {
@@ -109,11 +107,11 @@ export const getUserChats = async () => await httpClient.get('/chats');
 
 export const getOneChat = async (chatId) => await httpClient.get(`/chats/${chatId}`);
 
-export const addNewMessage = async ({chatId, message}) => await httpClient.post(`/chats/${chatId}`, message, {
-    headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-});
+// export const addNewMessage = async ({chatId, message}) => await httpClient.post(`/chats/${chatId}`, message, {
+//     headers: {
+//         'Content-Type': 'multipart/form-data'
+//       }
+// });
 
 export const createNewChat = async (data) => await httpClient.post('/chats', data);
 

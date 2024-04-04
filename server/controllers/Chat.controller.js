@@ -10,7 +10,7 @@ module.exports.createChat = async (req, res, next) => {
     }
 }
 
-
+/*
 module.exports.addMessage = async (req, res, next) => {
     try {
         const {body, params: {chatId}, file} = req;
@@ -28,6 +28,8 @@ module.exports.addMessage = async (req, res, next) => {
         next(error)
     }
 }
+
+*/
 
 module.exports.getAllUserChats = async(req, res, next) => {
     try {

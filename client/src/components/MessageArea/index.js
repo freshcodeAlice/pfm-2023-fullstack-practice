@@ -18,12 +18,10 @@ const MessageArea = (props) => {
         // відпрвляти action напряму звідси
         if(text || image) {
             const newMessageObject = {
-                chatId: props.currentChat?._id,
-                message: {
                     author: props.user._id,
                     body: text,
-                    image: image
-                }
+                    image: image,
+                    chat: props.currentChat?._id,
             }
             props.addNewMessageRequest(newMessageObject)
             setText('');
