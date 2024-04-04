@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import styles from './MessageArea.module.css';
 import {addNewMessageRequest} from '../../actions/actionCreators';
+
 import cx from 'classnames';
 
 // зчитувати нове повідомлення і відправляти його ДашБорду, а той - відправляти на сервер
@@ -43,8 +44,8 @@ const MessageArea = (props) => {
     }
 
     const imageHandler = (event) => {
-     //   imageReader(event.target.files[0])
-        setImage(event.target.files[0]);
+        imageReader(event.target.files[0])
+    //    setImage(event.target.files[0]);
     } 
 
     // const dragStart = () => {
@@ -80,6 +81,7 @@ const MessageArea = (props) => {
         setImage(event.dataTransfer.files[0]);
         setDrag(false);
     }
+
 
     const cn = cx(styles.container, {
         [styles['drag-active']]: drag
